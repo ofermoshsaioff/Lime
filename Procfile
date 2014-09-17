@@ -1,1 +1,1 @@
-web: gunicorn hello:app --log-file=- --workers $WEB_CONCURRENCY
+web: gunicorn media_server:app --log-file=- --workers $WEB_CONCURRENCY
