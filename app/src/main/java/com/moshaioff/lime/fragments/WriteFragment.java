@@ -65,4 +65,9 @@ public class WriteFragment extends Fragment implements View.OnClickListener {
     public void onClick(View view) {
         ((MainActivity)getActivity()).writeNFC(editText.getText().toString());
     }
+
+    public void setText(String result) {
+        data = result;
+        editText.setText(data);
+    }
 }

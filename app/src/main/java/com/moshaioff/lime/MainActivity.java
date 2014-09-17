@@ -12,6 +12,7 @@ import android.nfc.Tag;
 import android.nfc.tech.Ndef;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
@@ -36,6 +37,8 @@ public class MainActivity extends FragmentActivity {
     public static final String MIME_TEXT_PLAIN = "text/plain";
 
     private ViewPager viewPager;
+    private ReadFragment readFragment;
+    private WriteFragment writeFragment;
 
     private NfcAdapter mNfcAdapter;
     private Tag tag;
@@ -47,7 +50,10 @@ public class MainActivity extends FragmentActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        adapter = new ReadWritePagerAdapter(getSupportFragmentManager());
+        readFragment = ReadFragment.newInstance(null);
+        writeFragment = WriteFragment.newInstance(null);
+
+        adapter = new ReadWritePagerAdapter(getSupportFragmentManager(), readFragment, writeFragment);
 
         viewPager = ((ViewPager) findViewById(R.id.pager));
         viewPager.setAdapter(adapter);
@@ -137,7 +143,9 @@ public class MainActivity extends FragmentActivity {
          *
          * In our case this method gets called, when the user attaches a Tag to the device.
          */
-        handleIntent(intent);
+        if (viewPager.getCurrentItem() == 0) {// read mode
+            handleIntent(intent);
+        }
     }
 
     private void handleIntent(Intent intent) {
@@ -287,7 +295,8 @@ public class MainActivity extends FragmentActivity {
         @Override
         protected void onPostExecute(String result) {
             if (result != null) {
-                adapter.setData(result);
+                readFragment.setText(result);
+                writeFragment.setText(result);
             }
         }
     }
@@ -360,19 +369,23 @@ public class MainActivity extends FragmentActivity {
 
     private static class ReadWritePagerAdapter extends FragmentStatePagerAdapter {
 
+        private ReadFragment readFragment;
+        private WriteFragment writeFragment;
         private String data = "Hi! \n this is a simple message...";
 
-        public ReadWritePagerAdapter(FragmentManager fm) {
+        public ReadWritePagerAdapter(FragmentManager fm, ReadFragment readFragment, WriteFragment writeFragment) {
             super(fm);
+            this.readFragment = readFragment;
+            this.writeFragment = writeFragment;
         }
 
         @Override
         public Fragment getItem(int position) {
             if (position == 0) {
-                return ReadFragment.newInstance(data);
+                return readFragment;
             }
             if (position == 1) {
-                return WriteFragment.newInstance(data);
+                return writeFragment;
             }
             else return null;
         }
@@ -380,10 +393,6 @@ public class MainActivity extends FragmentActivity {
         @Override
         public int getCount() {
             return 2; // for now
-        }
-
-        public void setData(String data) {
-            this.data = data;
         }
     }
 }
