@@ -111,16 +111,6 @@ public class MainActivity extends FragmentActivity {
         }
 
         handleIntent(getIntent());
-
-        Handler handler = new Handler();
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                String text = "Hello this is a text message with an image uri: http://pics.invi.com/users/6.jpg";
-                readFragment.setText(text);
-                writeFragment.setText(text);
-            }
-        }, 5000);
     }
 
     @Override
