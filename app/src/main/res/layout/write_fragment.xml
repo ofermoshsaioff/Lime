@@ -11,19 +11,43 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:textSize="30sp"
+        android:textSize="@dimen/main_text_size"
         android:gravity="center"
         android:layout_margin="30dp"
         android:textColor="@color/lime_primary"/>
 
-    <Button
-        android:id="@+id/send_button"
+    <ImageView
+        android:id="@+id/image"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="144dp"
+        android:visibility="gone"/>
+
+    <LinearLayout
+        android:id="@+id/input_line"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
         android:background="@color/lime_primary"
-        android:textColor="@color/blue_primary"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        android:text="@string/go"/>
+        android:orientation="horizontal">
+
+        <ImageButton
+            android:id="@+id/camera_button"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            style="?android:attr/borderlessButtonStyle"
+            android:src="@android:drawable/ic_menu_camera"/>
+
+        <Button
+            android:id="@+id/send_button"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/go_button_selector"
+            android:textColor="@color/blue_primary"
+            android:textSize="@dimen/button_text_size"
+            android:textStyle="bold"
+            android:text="@string/go"/>
+
+    </LinearLayout>
 
 </LinearLayout>

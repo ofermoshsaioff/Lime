@@ -43,17 +43,15 @@ public class MainActivity extends FragmentActivity {
     private NfcAdapter mNfcAdapter;
     private Tag tag;
 
-    private ReadWritePagerAdapter adapter;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        readFragment = ReadFragment.newInstance(null);
-        writeFragment = WriteFragment.newInstance(null);
+        readFragment = ReadFragment.newInstance();
+        writeFragment = WriteFragment.newInstance();
 
-        adapter = new ReadWritePagerAdapter(getSupportFragmentManager(), readFragment, writeFragment);
+        ReadWritePagerAdapter adapter = new ReadWritePagerAdapter(getSupportFragmentManager(), readFragment, writeFragment);
 
         viewPager = ((ViewPager) findViewById(R.id.pager));
         viewPager.setAdapter(adapter);
@@ -111,7 +109,18 @@ public class MainActivity extends FragmentActivity {
             return;
 
         }
+
         handleIntent(getIntent());
+
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                String text = "Hello this is a text message with an image uri: http://pics.invi.com/users/6.jpg";
+                readFragment.setText(text);
+                writeFragment.setText(text);
+            }
+        }, 5000);
     }
 
     @Override

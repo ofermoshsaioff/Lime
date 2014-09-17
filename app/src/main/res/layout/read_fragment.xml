@@ -12,16 +12,23 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:textSize="30sp"
+        android:textSize="@dimen/main_text_size"
         android:gravity="center"
         android:layout_margin="30dp"
+        android:linksClickable="true"
+        android:autoLink="web"
         android:textColor="@color/blue_primary"/>
 
+    <ImageView
+        android:id="@+id/image"
+        android:layout_width="match_parent"
+        android:layout_height="144dp"
+        android:visibility="gone"/>
 
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="24sp"
+        android:layout_height="48dp"
+        android:textSize="@dimen/button_text_size"
         android:textStyle="bold"
         android:gravity="center"
         android:padding="5dp"
