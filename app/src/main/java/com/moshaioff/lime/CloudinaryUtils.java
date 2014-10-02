@@ -1,7 +1,11 @@
 package com.moshaioff.lime;
 
+import android.content.ContentResolver;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.widget.Toast;
 
 import com.cloudinary.Cloudinary;
 import com.moshaioff.lime.otto.ImageLoadEvent;
@@ -10,6 +14,9 @@ import com.moshaioff.lime.otto.OttoUtils;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
@@ -46,8 +53,11 @@ public class CloudinaryUtils {
         @Override
         protected String doInBackground(Uri... params) {
             try {
-                InputStream inputStream = LimeApplication.contentResolver().openInputStream(params[0]);
-                JSONObject jsonObject = cloudinary.uploader().upload(inputStream, Cloudinary.emptyMap());
+                Bitmap bitmap = decodeSampledBitmapFromUri(params[0], 256, 256);
+                ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+                bitmap.compress(Bitmap.CompressFormat.PNG, 0, byteArrayOutputStream);
+                ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(byteArrayOutputStream.toByteArray());
+                JSONObject jsonObject = cloudinary.uploader().upload(byteArrayInputStream, Cloudinary.emptyMap());
                 return jsonObject.getString(Const.JSON.EXTRA_URL);
 
             } catch (java.io.IOException e) {
@@ -65,6 +75,44 @@ public class CloudinaryUtils {
         }
     }
 
+    public Bitmap decodeSampledBitmapFromUri(Uri uri, int reqWidth, int reqHeight) {
 
+        Bitmap bm = null;
+        ContentResolver contentResolver = LimeApplication.contentResolver();
 
+        try{
+            // First decode with inJustDecodeBounds=true to check dimensions
+            final BitmapFactory.Options options = new BitmapFactory.Options();
+            options.inJustDecodeBounds = true;
+            BitmapFactory.decodeStream(contentResolver.openInputStream(uri), null, options);
+
+            // Calculate inSampleSize
+            options.inSampleSize = calculateInSampleSize(options, reqWidth, reqHeight);
+
+            // Decode bitmap with inSampleSize set
+            options.inJustDecodeBounds = false;
+            bm = BitmapFactory.decodeStream(contentResolver.openInputStream(uri), null, options);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        return bm;
+    }
+
+    private int calculateInSampleSize(
+            BitmapFactory.Options options, int reqWidth, int reqHeight) {
+        // Raw height and width of image
+        final int height = options.outHeight;
+        final int width = options.outWidth;
+        int inSampleSize = 1;
+
+        if (height > reqHeight || width > reqWidth) {
+            if (width > height) {
+                inSampleSize = Math.round((float)height / (float)reqHeight);
+            } else {
+                inSampleSize = Math.round((float)width / (float)reqWidth);
+            }
+        }
+        return inSampleSize;
+    }
 }
