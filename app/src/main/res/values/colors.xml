@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="lime_primary">#BBE43E</color>
-    <color name="lime_primary_pressed">#96B632</color>
-    <color name="blue_primary">#441BC1</color>
+    <color name="pastel_green">#539770</color>
+    <color name="pastel_dark_green">#4B7D74</color>
+    <color name="pastel_light_green">#8DC2BC</color>
+    <color name="pastel_beige">#EDD6B4</color>
+    <color name="pastel_red">#BE7467</color>
+    <color name="pastel_orange">#E2AE63</color>
+    <color name="black_transparent">#A0000000</color>
+
 </resources>

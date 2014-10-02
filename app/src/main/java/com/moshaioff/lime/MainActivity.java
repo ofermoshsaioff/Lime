@@ -12,7 +12,6 @@ import android.nfc.Tag;
 import android.nfc.tech.Ndef;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
@@ -58,7 +57,6 @@ public class MainActivity extends FragmentActivity {
         viewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
             }
 
             @Override
@@ -370,7 +368,6 @@ public class MainActivity extends FragmentActivity {
 
         private ReadFragment readFragment;
         private WriteFragment writeFragment;
-        private String data = "Hi! \n this is a simple message...";
 
         public ReadWritePagerAdapter(FragmentManager fm, ReadFragment readFragment, WriteFragment writeFragment) {
             super(fm);

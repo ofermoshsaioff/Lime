@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_gravity="center"
-    android:background="@color/lime_primary">
+    android:background="@color/pastel_light_green">
 
     <TextView
         android:id="@+id/read_message"
@@ -17,7 +17,7 @@
         android:layout_margin="30dp"
         android:linksClickable="true"
         android:autoLink="web"
-        android:textColor="@color/blue_primary"/>
+        android:textColor="@color/pastel_dark_green"/>
 
     <ImageView
         android:id="@+id/image"
@@ -33,9 +33,9 @@
         android:gravity="center"
         android:padding="5dp"
         android:text="@string/swipe_action"
-        android:background="@color/blue_primary"
+        android:background="@color/pastel_red"
         android:drawableRight="@android:drawable/ic_media_play"
         android:drawableEnd="@android:drawable/ic_media_play"
-        android:textColor="@color/lime_primary"/>
+        android:textColor="@color/pastel_orange"/>
 
 </LinearLayout>

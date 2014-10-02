@@ -2,7 +2,6 @@ package com.moshaioff.lime.fragments;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -14,9 +13,14 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 
+import com.moshaioff.lime.CloudinaryUtils;
 import com.moshaioff.lime.FileUtils;
 import com.moshaioff.lime.MainActivity;
+import com.moshaioff.lime.otto.ImageLoadEvent;
+import com.moshaioff.lime.otto.OttoUtils;
+import com.squareup.otto.Subscribe;
 import com.squareup.picasso.Picasso;
 import com.yoavram.lime.R;
 
@@ -33,6 +37,7 @@ public class WriteFragment extends Fragment implements View.OnClickListener {
     // views
     private EditText editText;
     private ImageView imageView;
+    private ProgressBar progressBar;
     private Button sendButton;
     private ImageButton cameraButton;
     private File photoFile;
@@ -44,6 +49,7 @@ public class WriteFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        OttoUtils.getInstance().getBus().register(this);
     }
 
     @Override
@@ -52,6 +58,7 @@ public class WriteFragment extends Fragment implements View.OnClickListener {
 
         editText = (EditText) root.findViewById(R.id.edit_text);
         imageView = ((ImageView) root.findViewById(R.id.image));
+        progressBar = (ProgressBar) root.findViewById(R.id.progress_bar);
         sendButton = (Button) root.findViewById(R.id.send_button);
         cameraButton = ((ImageButton) root.findViewById(R.id.camera_button));
 
@@ -64,6 +71,12 @@ public class WriteFragment extends Fragment implements View.OnClickListener {
         sendButton.setOnClickListener(this);
         cameraButton.setOnClickListener(this);
 
+    }
+
+    @Subscribe
+    public void answerAvailable(ImageLoadEvent event) {
+        editText.append("\n" + event.getPath());
+        progressBar.setVisibility(View.GONE);
     }
 
     @Override
@@ -100,12 +113,15 @@ public class WriteFragment extends Fragment implements View.OnClickListener {
 
             addFileToGallery();
 
+            CloudinaryUtils.getInstance().uploadImage(Uri.fromFile(photoFile));
+
             imageView.setVisibility(View.VISIBLE);
             Picasso.with(getActivity()).load(photoFile.getAbsoluteFile())
                     .fit()
                     .centerCrop()
                     .into(imageView);
-            editText.append(" " + photoFile.getAbsolutePath());
+
+            progressBar.setVisibility(View.VISIBLE);
         }
 
         super.onActivityResult(requestCode, resultCode, data);
@@ -121,4 +137,5 @@ public class WriteFragment extends Fragment implements View.OnClickListener {
     public void setText(String result) {
         editText.setText(result);
     }
+
 }

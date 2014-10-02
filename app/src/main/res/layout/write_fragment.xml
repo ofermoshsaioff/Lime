@@ -4,7 +4,7 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/blue_primary">
+    android:background="@color/pastel_red">
 
     <EditText
         android:id="@+id/edit_text"
@@ -12,21 +12,34 @@
         android:layout_height="0dp"
         android:layout_weight="1"
         android:textSize="@dimen/main_text_size"
-        android:gravity="center"
+        android:layout_gravity="top"
         android:layout_margin="30dp"
-        android:textColor="@color/lime_primary"/>
+        android:textColor="@color/pastel_dark_green"/>
 
-    <ImageView
-        android:id="@+id/image"
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="144dp"
-        android:visibility="gone"/>
+        android:layout_height="144dp">
+
+        <ImageView
+            android:id="@+id/image"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone"/>
+
+        <ProgressBar
+            android:id="@+id/progress_bar"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:indeterminate="true"
+            android:background="@color/black_transparent"
+            android:visibility="gone"/>
+    </FrameLayout>
 
     <LinearLayout
         android:id="@+id/input_line"
         android:layout_width="match_parent"
         android:layout_height="48dp"
-        android:background="@color/lime_primary"
+        android:background="@color/pastel_dark_green"
         android:orientation="horizontal">
 
         <ImageButton
@@ -43,7 +56,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:background="@drawable/go_button_selector"
-            android:textColor="@color/blue_primary"
+            android:textColor="@color/pastel_light_green"
             android:textSize="@dimen/button_text_size"
             android:textStyle="bold"
             android:text="@string/go"/>
