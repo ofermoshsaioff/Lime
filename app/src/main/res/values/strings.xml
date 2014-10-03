@@ -8,5 +8,6 @@
     <string name="go">GO!</string>
     <string name="read">Read</string>
     <string name="write">Write</string>
+    <string name="counter">characters</string>
 
 </resources>

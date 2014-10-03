@@ -6,7 +6,12 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -14,8 +19,10 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import com.moshaioff.lime.CloudinaryUtils;
+import com.moshaioff.lime.Const;
 import com.moshaioff.lime.FileUtils;
 import com.moshaioff.lime.MainActivity;
 import com.moshaioff.lime.otto.ImageLoadEvent;
@@ -30,7 +37,7 @@ import java.io.IOException;
 /**
  * Created by ofer on 9/17/14.
  */
-public class WriteFragment extends Fragment implements View.OnClickListener {
+public class WriteFragment extends Fragment implements View.OnClickListener, TextWatcher {
 
     private static final int REQUEST_IMAGE_CAPTURE = 1;
 
@@ -40,7 +47,12 @@ public class WriteFragment extends Fragment implements View.OnClickListener {
     private ProgressBar progressBar;
     private Button sendButton;
     private ImageButton cameraButton;
+    private TextView counterText;
+
+    // members
+    private StringBuilder suffix = new StringBuilder();
     private File photoFile;
+    private int charCounter = Const.MAX_CHARS;
 
     public static WriteFragment newInstance() {
         return new WriteFragment();
@@ -50,6 +62,7 @@ public class WriteFragment extends Fragment implements View.OnClickListener {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         OttoUtils.getInstance().getBus().register(this);
+        setHasOptionsMenu(true);
     }
 
     @Override
@@ -70,12 +83,24 @@ public class WriteFragment extends Fragment implements View.OnClickListener {
         super.onViewCreated(view, savedInstanceState);
         sendButton.setOnClickListener(this);
         cameraButton.setOnClickListener(this);
+        editText.addTextChangedListener(this);
+    }
 
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        counterText = new TextView(getActivity());
+        counterText.setTextColor(getResources().getColor(R.color.pastel_orange));
+        counterText.setTextSize(14);
+        updateCounterText();
+        menu.add(0, 1, 1, R.string.counter).setActionView(counterText).setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
     }
 
     @Subscribe
     public void answerAvailable(ImageLoadEvent event) {
-        editText.append("\n" + event.getPath());
+        suffix.append(event.getPath() + "\n");
+        charCounter -= suffix.length();
+        updateCounterText();
         progressBar.setVisibility(View.GONE);
     }
 
@@ -83,6 +108,7 @@ public class WriteFragment extends Fragment implements View.OnClickListener {
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.send_button:
+                //TODO - use OTTO!
                 ((MainActivity) getActivity()).writeNFC(editText.getText().toString());
                 break;
             case R.id.camera_button:
@@ -134,8 +160,30 @@ public class WriteFragment extends Fragment implements View.OnClickListener {
         getActivity().sendBroadcast(mediaScanIntent);
     }
 
+    //TODO - add the suffix text as well
     public void setText(String result) {
         editText.setText(result);
+        charCounter -= result.length();
+        updateCounterText();
     }
 
+    @Override
+    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+    }
+
+    @Override
+    public void onTextChanged(CharSequence s, int start, int before, int count) {
+        charCounter = Const.MAX_CHARS - editText.length();
+        updateCounterText();
+    }
+
+    @Override
+    public void afterTextChanged(Editable s) {
+
+    }
+
+    public void updateCounterText() {
+        counterText.setText(String.valueOf(charCounter));
+    }
 }

@@ -12,8 +12,9 @@
         android:layout_height="0dp"
         android:layout_weight="1"
         android:textSize="@dimen/main_text_size"
-        android:layout_gravity="top"
-        android:layout_margin="30dp"
+        android:gravity="top"
+        android:layout_gravity="center"
+        android:layout_margin="15dp"
         android:textColor="@color/pastel_dark_green"/>
 
     <FrameLayout

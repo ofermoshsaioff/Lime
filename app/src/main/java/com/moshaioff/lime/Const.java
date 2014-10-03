@@ -9,6 +9,8 @@ import java.util.regex.Pattern;
  */
 public class Const {
 
+    public static final int MAX_CHARS = 180;
+
     public static final class JSON {
         public static final String EXTRA_URL = "url";
     }
