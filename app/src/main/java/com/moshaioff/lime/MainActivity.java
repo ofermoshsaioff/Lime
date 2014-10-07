@@ -24,6 +24,9 @@ import android.widget.Toast;
 
 import com.moshaioff.lime.fragments.ReadFragment;
 import com.moshaioff.lime.fragments.WriteFragment;
+import com.moshaioff.lime.otto.OttoUtils;
+import com.moshaioff.lime.otto.WriteNFCEvent;
+import com.squareup.otto.Subscribe;
 import com.yoavram.lime.R;
 
 import java.io.UnsupportedEncodingException;
@@ -46,6 +49,8 @@ public class MainActivity extends FragmentActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        OttoUtils.getInstance().getBus().register(this);
 
         readFragment = ReadFragment.newInstance();
         writeFragment = WriteFragment.newInstance();
@@ -129,6 +134,11 @@ public class MainActivity extends FragmentActivity {
          */
         stopForegroundDispatch(this, mNfcAdapter);
         super.onPause();
+    }
+
+    @Subscribe
+    public void answerAvailable(WriteNFCEvent event) {
+        writeNFC(event.getData());
     }
 
     @Override

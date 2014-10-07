@@ -27,6 +27,7 @@ import com.moshaioff.lime.FileUtils;
 import com.moshaioff.lime.MainActivity;
 import com.moshaioff.lime.otto.ImageLoadEvent;
 import com.moshaioff.lime.otto.OttoUtils;
+import com.moshaioff.lime.otto.WriteNFCEvent;
 import com.squareup.otto.Subscribe;
 import com.squareup.picasso.Picasso;
 import com.yoavram.lime.R;
@@ -108,8 +109,7 @@ public class WriteFragment extends Fragment implements View.OnClickListener, Tex
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.send_button:
-                //TODO - use OTTO!
-                ((MainActivity) getActivity()).writeNFC(editText.getText().toString());
+                OttoUtils.getInstance().getBus().post(new WriteNFCEvent(editText.getText().toString()));
                 break;
             case R.id.camera_button:
                 takePhoto();
