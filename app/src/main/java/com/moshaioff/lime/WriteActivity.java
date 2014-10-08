@@ -71,6 +71,12 @@ public class WriteActivity extends Activity implements View.OnClickListener, Tex
         editText.setText(text);
     }
 
+    @Override
+    public void onBackPressed() {
+        finish();
+        overridePendingTransition(R.anim.slide_in_from_bottom, R.anim.slide_out_to_right);
+    }
+
     @Subscribe
     public void answerAvailable(ImageLoadEvent event) {
         String path = event.getPath();

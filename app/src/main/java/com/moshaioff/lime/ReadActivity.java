@@ -191,6 +191,7 @@ public class ReadActivity extends Activity implements View.OnClickListener {
                 startActivity(new Intent(ReadActivity.this, WriteActivity.class)
                 .putExtra(Const.EXTRA_TEXT, textView.getText())
                 .putExtra(Const.EXTRA_TAG, tag));
+                overridePendingTransition(R.anim.slide_in_from_left, R.anim.slide_out_to_bottom);
                 break;
         }
     }
