@@ -9,5 +9,7 @@
     <string name="read">Read</string>
     <string name="write">Write</string>
     <string name="counter">characters</string>
+    <string name="add_more_stuff">Add More Stuff!</string>
+    <string name="find_nfc_tag_text">Put me on a sticker...</string>
 
 </resources>

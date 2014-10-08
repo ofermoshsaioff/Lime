@@ -25,17 +25,16 @@
         android:layout_height="144dp"
         android:visibility="gone"/>
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:textSize="@dimen/button_text_size"
-        android:textStyle="bold"
-        android:gravity="center"
-        android:padding="5dp"
-        android:text="@string/swipe_action"
+    <Button
+        android:id="@+id/edit_button"
+        android:layout_gravity="bottom|center_horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:padding="20dp"
+        android:textSize="24sp"
+        android:text="@string/find_nfc_tag_text"
         android:background="@color/pastel_red"
-        android:drawableRight="@android:drawable/ic_media_play"
-        android:drawableEnd="@android:drawable/ic_media_play"
         android:textColor="@color/pastel_orange"/>
 
 </LinearLayout>

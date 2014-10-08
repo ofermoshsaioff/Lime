@@ -1,7 +1,5 @@
 package com.moshaioff.lime;
 
-import com.yoavram.lime.R;
-
 import java.util.regex.Pattern;
 
 /**
@@ -11,6 +9,11 @@ public class Const {
 
     public static final int MAX_CHARS = 180;
 
+    public static final int REQUEST_IMAGE_CAPTURE = 1;
+
+    public static final String EXTRA_TEXT = ".EXTRA_TEXT";
+    public static final String EXTRA_TAG = ".EXTRA_TAG";
+
     public static final class JSON {
         public static final String EXTRA_URL = "url";
     }
@@ -19,7 +22,4 @@ public class Const {
             "(http(s?):/)(/[^/]+)+" + "\\.(?:jpg|gif|png)",
             Pattern.CASE_INSENSITIVE | Pattern.MULTILINE | Pattern.DOTALL);
 
-    public static int[] colorPallette = new int[] {
-        R.color.pastel_green, R.color.pastel_dark_green, R.color.pastel_light_green,
-        R.color.pastel_beige, R.color.pastel_red, R.color.pastel_orange};
 }
