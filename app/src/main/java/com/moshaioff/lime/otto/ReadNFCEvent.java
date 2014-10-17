@@ -1,18 +1,19 @@
 package com.moshaioff.lime.otto;
 
+import com.moshaioff.lime.tasks.NdefReadResult;
+
 /**
  * Created by ofer on 10/8/14.
  */
 public class ReadNFCEvent {
 
-
-    public ReadNFCEvent(String resullt) {
+    public ReadNFCEvent(NdefReadResult resullt) {
         this.resullt = resullt;
     }
 
-    public String getResullt() {
+    public NdefReadResult getResullt() {
         return resullt;
     }
 
-    private String resullt;
+    private NdefReadResult resullt;
 }

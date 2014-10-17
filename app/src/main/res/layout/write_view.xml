@@ -6,45 +6,55 @@
     android:layout_height="match_parent"
     android:background="@color/pastel_red">
 
-    <TextView
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="?android:attr/actionBarSize"
+        android:gravity="right"
+        android:layout_margin="15dp"
+        android:orientation="horizontal">
+
+        <TextView
         android:id="@+id/counter_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="end|top"
-        android:textSize="18sp"
-        android:layout_margin="10dp"
+        android:textSize="22sp"
+        android:layout_marginRight="10dp"
+        android:text="180"
         android:textColor="@color/pastel_orange"/>
+
+        <Button
+            android:id="@+id/send_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/go_button_selector"
+            android:textColor="@color/pastel_light_green"
+            android:textSize="@dimen/button_text_size"
+            android:padding="10dp"
+            android:textStyle="bold"
+            android:text="@string/send_button_text"/>
+
+    </LinearLayout>
 
     <EditText
         android:id="@+id/edit_text"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
+        android:layout_height="wrap_content"
         android:textSize="@dimen/main_text_size"
-        android:gravity="top"
-        android:layout_gravity="center"
-        android:layout_margin="15dp"
+        android:hint="@string/hint_text"
         android:textColor="@color/pastel_dark_green"/>
 
-    <FrameLayout
-        android:id="@+id/image_container"
+    <GridView
+        android:id="@+id/image_grid_view"
         android:layout_width="match_parent"
-        android:layout_height="144dp"
-        android:visibility="gone">
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:numColumns="auto_fit"
+        android:columnWidth="88dp"
+        android:stretchMode="columnWidth"
+        android:gravity="center">
 
-        <ImageView
-            android:id="@+id/image"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
-
-        <ProgressBar
-            android:id="@+id/progress_bar"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:indeterminate="true"
-            android:background="@color/black_transparent"
-            android:visibility="gone"/>
-    </FrameLayout>
+    </GridView>
 
     <LinearLayout
         android:id="@+id/input_line"
@@ -59,17 +69,6 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:src="@android:drawable/ic_menu_camera"/>
-
-        <Button
-            android:id="@+id/send_button"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="@drawable/go_button_selector"
-            android:textColor="@color/pastel_light_green"
-            android:textSize="@dimen/button_text_size"
-            android:textStyle="bold"
-            android:text="@string/go"/>
 
     </LinearLayout>
 

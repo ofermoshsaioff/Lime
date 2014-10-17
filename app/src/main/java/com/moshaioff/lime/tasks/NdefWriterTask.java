@@ -8,13 +8,14 @@ import android.os.AsyncTask;
 import android.widget.Toast;
 
 import com.moshaioff.lime.LimeApplication;
+import com.moshaioff.lime.R;
 
 import java.io.UnsupportedEncodingException;
 
 /**
  * Created by ofer on 10/8/14.
  */
-public class NdefWriterTask extends AsyncTask<String, Void, Boolean> {
+public class NdefWriterTask extends AsyncTask<String, Void, NdefWriteResult> {
 
     private Tag tag;
 
@@ -23,16 +24,25 @@ public class NdefWriterTask extends AsyncTask<String, Void, Boolean> {
     }
 
     @Override
-    protected Boolean doInBackground(String... params) {
+    protected NdefWriteResult doInBackground(String... params) {
 
+        NdefWriteResult result;
+        String msg = LimeApplication.instance.getString(R.string.write_success_msg);
         boolean isSuccess = true;
+        String text = params[0];
 
         try {
-            NdefRecord[] records = { createRecord(params[0])};
+            NdefRecord[] records = { createRecord(text)};
             NdefMessage message = new NdefMessage(records);
 
             // Get an instance of Ndef for the tag.
             Ndef ndef = Ndef.get(tag);
+
+            int size = ndef.getMaxSize();
+            if (text.length() > size) {
+                result = new NdefWriteResult(false, LimeApplication.instance.getString(R.string.message_to_long_error, size));
+                return result;
+            }
 
             // Enable I/O
             ndef.connect();
@@ -45,10 +55,12 @@ public class NdefWriterTask extends AsyncTask<String, Void, Boolean> {
 
 
         } catch (Exception e) {
+            msg = LimeApplication.instance.getString(R.string.write_error_msg);
             e.printStackTrace();
             isSuccess = false;
         }
-        return isSuccess;
+        result = new NdefWriteResult(isSuccess, msg);
+        return result;
     }
 
     private NdefRecord createRecord(String text) throws UnsupportedEncodingException {
@@ -75,13 +87,8 @@ public class NdefWriterTask extends AsyncTask<String, Void, Boolean> {
     }
 
     @Override
-    protected void onPostExecute(Boolean isSuccess) {
-        String msg;
-        if (isSuccess) {
-            msg = "NFC Tag updated successfully!";
-        } else {
-            msg = "Could not write to NFC tag, try to bring the tag a little bit closer!";
-        }
-        Toast.makeText(LimeApplication.instance, msg, Toast.LENGTH_LONG).show();
+    protected void onPostExecute(NdefWriteResult result) {
+        Toast.makeText(LimeApplication.instance, result.getMessage(),
+                Toast.LENGTH_LONG).show();
     }
 }

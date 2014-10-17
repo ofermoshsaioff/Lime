@@ -1,4 +1,4 @@
-package com.moshaioff.lime;
+package com.moshaioff.lime.utils;
 
 import android.os.Environment;
 

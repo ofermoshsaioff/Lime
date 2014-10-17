@@ -5,11 +5,16 @@
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
     <string name="swipe_action">Swipe to Edit</string>
-    <string name="go">GO!</string>
+    <string name="send_button_text">Send</string>
     <string name="read">Read</string>
     <string name="write">Write</string>
     <string name="counter">characters</string>
     <string name="add_more_stuff">Add More Stuff!</string>
     <string name="find_nfc_tag_text">Put me on a sticker...</string>
+    <string name="write_success_msg">Nfc Tag updated successfully</string>
+    <string name="message_to_long_error">Message is too long, max size is %1$s</string>
+    <string name="write_error_msg">Failed to write to Nfc Tag, try to bring the device closer to the tag</string>
+    <string name="tag_connected">NFC Tag connected!</string>
+    <string name="hint_text">Whats up?</string>
 
 </resources>

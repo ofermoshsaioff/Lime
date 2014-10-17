@@ -20,29 +20,35 @@ import java.util.Arrays;
  * @author Ralf Wondratschek
  *
  */
-public class NdefReaderTask extends AsyncTask<Tag, Void, String> {
+public class NdefReaderTask extends AsyncTask<Tag, Void, NdefReadResult> {
 
     private static final String TAG = NdefReaderTask.class.getName();
 
     @Override
-    protected String doInBackground(Tag... params) {
+    protected NdefReadResult doInBackground(Tag... params) {
         Tag tag = params[0];
 
         Ndef ndef = Ndef.get(tag);
+        int size = ndef.getMaxSize();
         if (ndef == null) {
             // NDEF is not supported by this Tag.
             return null;
         }
 
         NdefMessage ndefMessage = ndef.getCachedNdefMessage();
+        if (ndefMessage != null) {
 
-        NdefRecord[] records = ndefMessage.getRecords();
-        for (NdefRecord ndefRecord : records) {
-            if (ndefRecord.getTnf() == NdefRecord.TNF_WELL_KNOWN && Arrays.equals(ndefRecord.getType(), NdefRecord.RTD_TEXT)) {
-                try {
-                    return readText(ndefRecord);
-                } catch (UnsupportedEncodingException e) {
-                    Log.e(TAG, "Unsupported Encoding", e);
+            NdefRecord[] records = ndefMessage.getRecords();
+            for (NdefRecord ndefRecord : records) {
+                if (ndefRecord.getTnf() == NdefRecord.TNF_WELL_KNOWN && Arrays.equals(ndefRecord.getType(), NdefRecord.RTD_TEXT)) {
+                    try {
+                        String text = readText(ndefRecord);
+                        NdefReadResult result = new NdefReadResult(text, size);
+                        return result;
+
+                    } catch (UnsupportedEncodingException e) {
+                        Log.e(TAG, "Unsupported Encoding", e);
+                    }
                 }
             }
         }
@@ -60,6 +66,9 @@ public class NdefReaderTask extends AsyncTask<Tag, Void, String> {
          * bit_6 reserved for future use, must be 0
          * bit_5..0 length of IANA language code
          */
+        if (record == null) {
+            return null;
+        }
 
         byte[] payload = record.getPayload();
 
@@ -77,7 +86,7 @@ public class NdefReaderTask extends AsyncTask<Tag, Void, String> {
     }
 
     @Override
-    protected void onPostExecute(String result) {
+    protected void onPostExecute(NdefReadResult result) {
         OttoUtils.getInstance().getBus().post(new ReadNFCEvent(result));
     }
 

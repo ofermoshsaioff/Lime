@@ -1,13 +1,14 @@
-package com.moshaioff.lime;
+package com.moshaioff.lime.utils;
 
 import android.content.ContentResolver;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.AsyncTask;
-import android.widget.Toast;
 
 import com.cloudinary.Cloudinary;
+import com.moshaioff.lime.Const;
+import com.moshaioff.lime.LimeApplication;
 import com.moshaioff.lime.otto.ImageLoadEvent;
 import com.moshaioff.lime.otto.OttoUtils;
 
@@ -17,7 +18,6 @@ import org.json.JSONObject;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
-import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
 
