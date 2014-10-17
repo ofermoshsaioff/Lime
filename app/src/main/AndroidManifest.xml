@@ -49,8 +49,6 @@
             android:windowSoftInputMode="adjustResize"
             android:configChanges="orientation|screenSize|keyboard"/>
 
-        <activity android:name=".activities.ImageFullScreenActivity"/>
-
     </application>
 
 </manifest>

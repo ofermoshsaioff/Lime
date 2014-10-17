@@ -1,18 +1,13 @@
 package com.moshaioff.lime.gallery;
 
 import android.content.Context;
-import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 
-import com.moshaioff.lime.Const;
 import com.moshaioff.lime.R;
-import com.moshaioff.lime.activities.ImageFullScreenActivity;
-import com.moshaioff.lime.otto.OttoUtils;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -52,14 +47,7 @@ public class ImageAdapter extends BaseAdapter {
         }
 
         ImageView thumbnail = (ImageView) convertView.findViewById(R.id.thumbnail);
-        thumbnail.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                context.startActivity(new Intent(context, ImageFullScreenActivity.class)
-                .putExtra(Const.EXTRA_IMAGE_URI, images.get(i).getUri()));
-            }
-        });
-        ImageButton deleteButton = (ImageButton) convertView.findViewById(R.id.delete_button);
+        ImageView deleteButton = (ImageView) convertView.findViewById(R.id.delete_button);
         deleteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

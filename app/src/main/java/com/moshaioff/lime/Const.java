@@ -12,6 +12,8 @@ public class Const {
 
     public static final String MIME_TEXT_PLAIN = "text/plain";
 
+    public static final String CLOUDINARY_FILE_PREFIX = "http://res.cloudinary.com/lime/image/upload";
+
     public static final String EXTRA_TEXT = ".EXTRA_TEXT";
     public static final String EXTRA_TAG = ".EXTRA_TAG";
     public static final String EXTRA_TAG_SIZE = ".EXTRA_TAG_SIZE";

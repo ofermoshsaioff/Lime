@@ -1,96 +1,109 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/container"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/pastel_red">
+    android:layout_height="match_parent">
 
-    <LinearLayout
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="?android:attr/actionBarSize"
-        android:gravity="right"
-        android:layout_margin="15dp"
-        android:orientation="horizontal">
-
-        <TextView
-        android:id="@+id/counter_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="end|top"
-        android:textSize="22sp"
-        android:layout_marginRight="10dp"
-        android:text="180"
-        android:textColor="@color/pastel_orange"/>
-
-        <Button
-            android:id="@+id/send_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/go_button_selector"
-            android:textColor="@color/pastel_light_green"
-            android:textSize="@dimen/button_text_size"
-            android:padding="10dp"
-            android:textStyle="bold"
-            android:text="@string/send_button_text"/>
-
-    </LinearLayout>
-
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1">
+        android:layout_height="match_parent"
+        android:background="@color/pastel_red">
 
         <LinearLayout
             android:layout_width="match_parent"
+            android:layout_height="?android:attr/actionBarSize"
+            android:gravity="right"
+            android:layout_margin="15dp"
+            android:orientation="horizontal">
+
+            <TextView
+            android:id="@+id/counter_text"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:layout_gravity="end|top"
+            android:textSize="22sp"
+            android:layout_marginRight="10dp"
+            android:text="180"
+            android:textColor="@color/pastel_orange"/>
 
-            <EditText
-                android:id="@+id/edit_text"
-                android:layout_width="match_parent"
+            <Button
+                android:id="@+id/send_button"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="@dimen/main_text_size"
-                android:hint="@string/hint_text"
-                android:textColor="@color/pastel_dark_green"/>
-
-            <GridView
-                android:id="@+id/image_grid_view"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                android:numColumns="auto_fit"
-                android:columnWidth="88dp"
-                android:stretchMode="columnWidth"
-                android:gravity="center"/>
+                android:background="@drawable/go_button_selector"
+                android:textColor="@color/pastel_light_green"
+                android:textSize="@dimen/button_text_size"
+                android:padding="10dp"
+                android:textStyle="bold"
+                android:text="@string/send_button_text"/>
 
         </LinearLayout>
 
-    </ScrollView>
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
 
-    <LinearLayout
-        android:id="@+id/input_line"
-        android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:background="@color/pastel_dark_green"
-        android:orientation="horizontal">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
 
-        <ImageButton
-            android:id="@+id/camera_button"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="@null"
-            android:src="@android:drawable/ic_menu_camera"/>
+                <EditText
+                    android:id="@+id/edit_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/main_text_size"
+                    android:hint="@string/hint_text"
+                    android:textColor="@color/pastel_dark_green"/>
 
-        <ImageButton
-            android:id="@+id/gallery_button"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="@null"
-            android:src="@android:drawable/ic_menu_gallery"/>
+                <GridView
+                    android:id="@+id/image_grid_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:numColumns="auto_fit"
+                    android:columnWidth="88dp"
+                    android:stretchMode="columnWidth"
+                    android:gravity="center"/>
+
+            </LinearLayout>
+
+        </ScrollView>
+
+        <LinearLayout
+            android:id="@+id/input_line"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:background="@color/pastel_dark_green"
+            android:orientation="horizontal">
+
+            <ImageButton
+                android:id="@+id/camera_button"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@null"
+                android:src="@android:drawable/ic_menu_camera"/>
+
+            <ImageButton
+                android:id="@+id/gallery_button"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@null"
+                android:src="@android:drawable/ic_menu_gallery"/>
+
+        </LinearLayout>
 
     </LinearLayout>
 
-</LinearLayout>
+    <ImageView
+        android:id="@+id/expanded_image"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="invisible"/>
+
+</FrameLayout>
