@@ -12,7 +12,6 @@ import android.provider.MediaStore;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.GridView;
@@ -41,7 +40,7 @@ import java.util.regex.Matcher;
  * Created by ofer on 10/8/14.
  * write NFC Activity
  */
-public class WriteActivity extends Activity implements View.OnClickListener, TextWatcher, AdapterView.OnItemClickListener {
+public class WriteActivity extends Activity implements View.OnClickListener, TextWatcher {
 
     private static final String TAG = WriteActivity.class.getName();
     // views
@@ -79,7 +78,6 @@ public class WriteActivity extends Activity implements View.OnClickListener, Tex
         gridView = (GridView) findViewById(R.id.image_grid_view);
 
         gridView.setAdapter(imageAdapter);
-        gridView.setOnItemClickListener(this);
 
         sendButton.setOnClickListener(this);
         cameraButton.setOnClickListener(this);
@@ -257,11 +255,5 @@ public class WriteActivity extends Activity implements View.OnClickListener, Tex
             }
         }
         return null;
-    }
-
-    @Override
-    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-        startActivity(new Intent(WriteActivity.this, ImageFullScreenActivity.class)
-        .putExtra(Const.EXTRA_IMAGE_URI, imageAdapter.getItem(i).getUri()));
     }
 }

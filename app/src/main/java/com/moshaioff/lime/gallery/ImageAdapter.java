@@ -1,12 +1,17 @@
 package com.moshaioff.lime.gallery;
 
 import android.content.Context;
+import android.content.Intent;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.GridView;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 
+import com.moshaioff.lime.Const;
+import com.moshaioff.lime.R;
+import com.moshaioff.lime.activities.ImageFullScreenActivity;
 import com.squareup.picasso.Picasso;
 
 import java.io.File;
@@ -41,14 +46,27 @@ public class ImageAdapter extends BaseAdapter {
     }
 
     @Override
-    public View getView(int i, View convertView, ViewGroup viewGroup) {
-        ImageView imageView;
+    public View getView(final int i, View convertView, ViewGroup viewGroup) {
         if (convertView == null) {  // if it's not recycled, initialize some attributes
-            imageView = new ImageView(context);
-            imageView.setLayoutParams(new GridView.LayoutParams(200, 200));
-        } else {
-            imageView = (ImageView) convertView;
+            convertView = LayoutInflater.from(context).inflate(R.layout.image_thumbnail_view, null);
         }
+
+        ImageView thumbnail = (ImageView) convertView.findViewById(R.id.thumbnail);
+        thumbnail.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                context.startActivity(new Intent(context, ImageFullScreenActivity.class)
+                .putExtra(Const.EXTRA_IMAGE_URI, images.get(i).getUri()));
+            }
+        });
+        ImageButton deleteButton = (ImageButton) convertView.findViewById(R.id.delete_button);
+        deleteButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                images.remove(i);
+                notifyDataSetChanged();
+            }
+        });
 
         File f = new File(images.get(i).getUri());
 
@@ -57,16 +75,16 @@ public class ImageAdapter extends BaseAdapter {
                     .fit()
                     .centerCrop()
                     .placeholder(android.R.color.darker_gray)
-                    .into(imageView);
+                    .into(thumbnail);
         } else {
             Picasso.with(context).load(images.get(i).getUri())
                     .fit()
                     .centerCrop()
                     .placeholder(android.R.color.darker_gray)
-                    .into(imageView);
+                    .into(thumbnail );
         }
 
-        return imageView;
+        return convertView;
     }
 
     public void addImage(GalleryItem item) {

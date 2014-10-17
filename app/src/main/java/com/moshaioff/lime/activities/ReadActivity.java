@@ -8,7 +8,6 @@ import android.nfc.tech.Ndef;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.GridView;
 import android.widget.TextView;
@@ -28,7 +27,7 @@ import org.apache.commons.lang3.StringUtils;
 import java.util.regex.Matcher;
 
 
-public class ReadActivity extends Activity implements View.OnClickListener, AdapterView.OnItemClickListener {
+public class ReadActivity extends Activity implements View.OnClickListener {
 
     public static final String TAG = "Lime";
     public static final String MIME_TEXT_PLAIN = "text/plain";
@@ -56,7 +55,6 @@ public class ReadActivity extends Activity implements View.OnClickListener, Adap
 
         imageAdapter = new ImageAdapter(this);
         gridView.setAdapter(imageAdapter);
-        gridView.setOnItemClickListener(this);
 
         OttoUtils.getInstance().getBus().register(this);
 
@@ -148,11 +146,5 @@ public class ReadActivity extends Activity implements View.OnClickListener, Adap
                 overridePendingTransition(R.anim.slide_in_from_left, R.anim.slide_out_to_bottom);
                 break;
         }
-    }
-
-    @Override
-    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-        startActivity(new Intent(ReadActivity.this, ImageFullScreenActivity.class)
-        .putExtra(Const.EXTRA_IMAGE_URI, imageAdapter.getItem(i).getUri()));
     }
 }
