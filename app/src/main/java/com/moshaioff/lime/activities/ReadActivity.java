@@ -2,6 +2,7 @@ package com.moshaioff.lime.activities;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.net.Uri;
 import android.nfc.NfcAdapter;
 import android.nfc.Tag;
 import android.nfc.tech.Ndef;
@@ -78,7 +79,7 @@ public class ReadActivity extends Activity implements View.OnClickListener {
         String imageUri = extractImageUri(text);
         if (StringUtils.isNotBlank(imageUri)) {
             imageAdapter.clear();
-            imageAdapter.addImage(new GalleryItem(imageUri));
+            imageAdapter.addImage(new GalleryItem(Uri.parse(imageUri)));
             imageAdapter.notifyDataSetChanged();
         }
     }

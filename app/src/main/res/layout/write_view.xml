@@ -82,6 +82,13 @@
             android:layout_weight="1"
             android:src="@android:drawable/ic_menu_camera"/>
 
+        <ImageView
+            android:id="@+id/gallery_button"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:src="@android:drawable/ic_menu_gallery"/>
+
     </LinearLayout>
 
 </LinearLayout>

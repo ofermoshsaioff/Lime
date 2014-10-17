@@ -14,7 +14,6 @@ import com.moshaioff.lime.R;
 import com.moshaioff.lime.activities.ImageFullScreenActivity;
 import com.squareup.picasso.Picasso;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -68,21 +67,11 @@ public class ImageAdapter extends BaseAdapter {
             }
         });
 
-        File f = new File(images.get(i).getUri());
-
-        if (f.exists()) {
-            Picasso.with(context).load(f)
-                    .fit()
-                    .centerCrop()
-                    .placeholder(android.R.color.darker_gray)
-                    .into(thumbnail);
-        } else {
-            Picasso.with(context).load(images.get(i).getUri())
-                    .fit()
-                    .centerCrop()
-                    .placeholder(android.R.color.darker_gray)
-                    .into(thumbnail );
-        }
+        Picasso.with(context).load(images.get(i).getUri())
+                .fit()
+                .centerCrop()
+                .placeholder(android.R.color.darker_gray)
+                .into(thumbnail);
 
         return convertView;
     }

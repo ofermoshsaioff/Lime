@@ -48,6 +48,7 @@ public class WriteActivity extends Activity implements View.OnClickListener, Tex
     private TextView counterText;
     private Button sendButton;
     private ImageView cameraButton;
+    private ImageView galleryButton;
     private GridView gridView;
 
     // members
@@ -75,18 +76,20 @@ public class WriteActivity extends Activity implements View.OnClickListener, Tex
         editText = (EditText) findViewById(R.id.edit_text);
         sendButton = (Button) findViewById(R.id.send_button);
         cameraButton = ((ImageView) findViewById(R.id.camera_button));
+        galleryButton = (ImageView) findViewById(R.id.gallery_button);
         gridView = (GridView) findViewById(R.id.image_grid_view);
 
         gridView.setAdapter(imageAdapter);
 
         sendButton.setOnClickListener(this);
+        galleryButton.setOnClickListener(this);
         cameraButton.setOnClickListener(this);
         editText.addTextChangedListener(this);
 
         editText.setText(text);
         String imageUri = extractImageUri(text);
         if (StringUtils.isNotBlank(imageUri)) {
-            imageAdapter.addImage(new GalleryItem(imageUri));
+            imageAdapter.addImage(new GalleryItem(Uri.parse(imageUri)));
             imageAdapter.notifyDataSetChanged();
         }
     }
@@ -181,7 +184,13 @@ public class WriteActivity extends Activity implements View.OnClickListener, Tex
             addFileToGallery();
 
             CloudinaryUtils.getInstance().uploadImage(Uri.fromFile(photoFile));
-            imageAdapter.addImage(new GalleryItem(photoFile.getAbsolutePath()));
+            imageAdapter.addImage(new GalleryItem(Uri.parse(photoFile.getAbsolutePath())));
+            imageAdapter.notifyDataSetChanged();
+        }
+        if (requestCode == Const.REQUEST_IMAGE_GALLERY && resultCode == Activity.RESULT_OK) {
+
+            CloudinaryUtils.getInstance().uploadImage(data.getData());
+            imageAdapter.addImage(new GalleryItem(data.getData()));
             imageAdapter.notifyDataSetChanged();
         }
 
@@ -222,7 +231,16 @@ public class WriteActivity extends Activity implements View.OnClickListener, Tex
             case R.id.camera_button:
                 takePhoto();
                 break;
+            case R.id.gallery_button:
+                openGallery();
         }
+    }
+
+    private void openGallery() {
+        Intent intent = new Intent();
+        intent.setType("image/*");
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+        startActivityForResult(Intent.createChooser(intent, "Select Picture"), Const.REQUEST_IMAGE_GALLERY);
     }
 
     @Override

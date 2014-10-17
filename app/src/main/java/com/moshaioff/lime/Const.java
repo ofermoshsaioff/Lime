@@ -8,6 +8,7 @@ import java.util.regex.Pattern;
 public class Const {
 
     public static final int REQUEST_IMAGE_CAPTURE = 1;
+    public static final int REQUEST_IMAGE_GALLERY = 2;
 
     public static final String MIME_TEXT_PLAIN = "text/plain";
 

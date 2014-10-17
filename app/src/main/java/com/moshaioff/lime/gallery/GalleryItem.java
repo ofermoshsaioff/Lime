@@ -1,16 +1,18 @@
 package com.moshaioff.lime.gallery;
 
+import android.net.Uri;
+
 /**
  * Created by ofer on 10/9/14.
  */
 public class GalleryItem {
 
-    public GalleryItem(String imageUri) {
+    public GalleryItem(Uri imageUri) {
         this.uri = imageUri;
     }
-    private String uri;
+    private Uri uri;
 
-    public String getUri() {
+    public Uri getUri() {
         return uri;
     }
 
