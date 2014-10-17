@@ -12,6 +12,7 @@ import android.widget.ImageView;
 import com.moshaioff.lime.Const;
 import com.moshaioff.lime.R;
 import com.moshaioff.lime.activities.ImageFullScreenActivity;
+import com.moshaioff.lime.otto.OttoUtils;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;

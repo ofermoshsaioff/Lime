@@ -1,6 +1,7 @@
 package com.moshaioff.lime.activities;
 
 import android.app.Activity;
+import android.net.Uri;
 import android.os.Bundle;
 import android.widget.ImageView;
 
@@ -22,7 +23,7 @@ public class ImageFullScreenActivity extends Activity {
         ImageView image = (ImageView) findViewById(R.id.image);
 
         Bundle b = getIntent().getExtras();
-        String uri = (String) b.get(Const.EXTRA_IMAGE_URI);
+        Uri uri = (Uri) b.get(Const.EXTRA_IMAGE_URI);
 
         Picasso.with(this).load(uri)
                 .centerCrop()

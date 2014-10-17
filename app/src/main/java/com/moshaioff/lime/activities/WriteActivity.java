@@ -15,7 +15,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.GridView;
-import android.widget.ImageView;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -47,8 +47,8 @@ public class WriteActivity extends Activity implements View.OnClickListener, Tex
     private EditText editText;
     private TextView counterText;
     private Button sendButton;
-    private ImageView cameraButton;
-    private ImageView galleryButton;
+    private ImageButton cameraButton;
+    private ImageButton galleryButton;
     private GridView gridView;
 
     // members
@@ -75,8 +75,8 @@ public class WriteActivity extends Activity implements View.OnClickListener, Tex
         counterText = (TextView) findViewById(R.id.counter_text);
         editText = (EditText) findViewById(R.id.edit_text);
         sendButton = (Button) findViewById(R.id.send_button);
-        cameraButton = ((ImageView) findViewById(R.id.camera_button));
-        galleryButton = (ImageView) findViewById(R.id.gallery_button);
+        cameraButton = ((ImageButton) findViewById(R.id.camera_button));
+        galleryButton = (ImageButton) findViewById(R.id.gallery_button);
         gridView = (GridView) findViewById(R.id.image_grid_view);
 
         gridView.setAdapter(imageAdapter);
